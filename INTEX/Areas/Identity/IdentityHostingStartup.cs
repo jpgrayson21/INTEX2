@@ -17,7 +17,7 @@ namespace INTEX.Areas.Identity
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<INTEXDbContext>(options =>
-                    options.UseSqlServer(
+                    options.UseMySql(
                         context.Configuration.GetConnectionString("INTEXDbContextConnection")));
 
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
