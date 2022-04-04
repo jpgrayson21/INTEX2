@@ -32,7 +32,7 @@ namespace INTEX
 
             services.AddDbContext<INTEXDbContext>(options =>
             {
-                options.UseMySql(connection);
+                options.UseMySql(Configuration["connection2Db"]);
             });
         }
 
