@@ -23,4 +23,5 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
+  base-directory: ./build_output
+  #'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
