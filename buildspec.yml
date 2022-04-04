@@ -3,8 +3,13 @@ version: 0.2
 env:
   variables:
     PROJECT: INTEX2
-    DOTNET_FRAMEWORK: 3.1.22
+    DOTNET_CORE_RUNTIME: 3.1
 phases:
+
+  install:
+    runtime-versions:
+      dotnet: ${DOTENT_CORE_RUNTIME}
+
   build:
     commands:
       - dotnet restore
