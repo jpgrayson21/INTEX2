@@ -18,8 +18,8 @@ phases:
 
   post_build:
     commands:
-      - dotnet publish -c Debug -r linux-x64 -o ./build_output ./${PROJECT}/${PROJECT}.csproj --self-contained false
-      
+      - dotnet publish -c Debug -o ./build_output ./${PROJECT}/${PROJECT}.csproj --self-contained false
+
 artifacts:
   files:
     - '**/*'
