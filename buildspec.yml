@@ -1,0 +1,20 @@
+version: 0.2
+
+env:
+  variables:
+    PROJECT: INTEX2
+    DOTNET_CORE_RUNTIME: 3.1
+phases:
+
+  install:
+    runtime-versions:
+      dotnet: ${DOTNET_CORE_RUNTIME}
+
+  build:
+    commands:
+      - dotnet restore
+      - msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
