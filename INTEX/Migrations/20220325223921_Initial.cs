@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace INTEX2.Migrations
+namespace INTEX.Migrations
 {
     public partial class Initial : Migration
     {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace INTEX2
+namespace INTEX
 {
     public class Program
     {

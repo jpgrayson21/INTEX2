@@ -1,6 +1,6 @@
 using System;
 
-namespace INTEX2.Models
+namespace INTEX.Models
 {
     public class ErrorViewModel
     {

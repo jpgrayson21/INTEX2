@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using INTEX2.Areas.Identity.Data;
+using INTEX.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace INTEX2.Data
+namespace INTEX.Data
 {
     public class INTEXDbContext : IdentityDbContext<ApplicationUser>
     {

@@ -1,4 +1,4 @@
-﻿using INTEX2.Models;
+﻿using INTEX.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace INTEX2.Controllers
+namespace INTEX.Controllers
 {
     // Only allows authorized users to use controller - option, use another controller for authorized material
     //[Authorize]

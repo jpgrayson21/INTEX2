@@ -1,5 +1,5 @@
-using INTEX2.Data;
-using INTEX2.Models;
+using INTEX.Data;
+using INTEX.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace INTEX2
+namespace INTEX
 {
     public class Startup
     {

@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    PROJECT: INTEX2
+    PROJECT: INTEX
     DOTNET_CORE_RUNTIME: 3.1
 phases:
 
