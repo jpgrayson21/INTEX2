@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -20,7 +20,10 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RDS_HOSTNAME": "aawxukxqq845f3.c9ysuq7mmxcj.us-east-1.rds.amazonaws.com",
+        "RDS_PASSWORD": "CZWddyLgXzjZZVCWWN6P2sxda6ed48ZF",
+        "RDS_USERNAME": "awsDB"
       }
     }
   }
