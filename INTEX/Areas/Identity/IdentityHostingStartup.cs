@@ -1,6 +1,7 @@
 ﻿using System;
 using INTEX.Areas.Identity.Data;
 using INTEX.Data;
+using INTEX.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -17,8 +18,7 @@ namespace INTEX.Areas.Identity
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<INTEXDbContext>(options =>
-                    options.UseMySql(
-                        context.Configuration.GetConnectionString("INTEXDbContextConnection")));
+                    options.UseMySql(DbHelper.GetIdentityConnectionString()));
 
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<INTEXDbContext>();
