@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace INTEX.Models
+namespace INTEX2.Models
 {
     public static class DbHelper
     {

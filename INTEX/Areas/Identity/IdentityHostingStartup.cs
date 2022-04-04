@@ -1,6 +1,6 @@
 ﻿using System;
-using INTEX.Areas.Identity.Data;
-using INTEX.Data;
+using INTEX2.Areas.Identity.Data;
+using INTEX2.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(INTEX.Areas.Identity.IdentityHostingStartup))]
-namespace INTEX.Areas.Identity
+[assembly: HostingStartup(typeof(INTEX2.Areas.Identity.IdentityHostingStartup))]
+namespace INTEX2.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

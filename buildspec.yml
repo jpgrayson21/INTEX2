@@ -13,7 +13,13 @@ phases:
   build:
     commands:
       - dotnet restore
-      - msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+      - dotnet build -c Debug
+      #- msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+
+  post_build:
+    commands:
+      - dotnet publish -c Debug -r linux-x64 -o ./build_output ./${PROJECT}/${PROJECT}.csproj --self-contained false
+      
 artifacts:
   files:
     - '**/*'
