@@ -22,6 +22,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
+
         "RDS_HOSTNAME": "aawxukxqq845f3.c9ysuq7mmxcj.us-east-1.rds.amazonaws.com",
         "RDS_USERNAME": "awsDB",
         "RDS_PASSWORD": "CZWddyLgXzjZZVCWWN6P2sxda6ed48ZF",

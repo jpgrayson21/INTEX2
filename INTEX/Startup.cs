@@ -30,6 +30,9 @@ namespace INTEX
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
             services.AddDbContext<INTEXDbContext>(options =>
             {
                 options.UseMySql(DbHelper.GetRDSConnectionString("Identity"));
