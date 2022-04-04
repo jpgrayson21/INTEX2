@@ -32,7 +32,7 @@ namespace INTEX
 
             services.AddDbContext<INTEXDbContext>(options =>
             {
-                options.UseMySql(DbHelper.GetRDSConnectionString());
+                options.UseMySql(DbHelper.GetRDSConnectionString("Identity"));
             });
         }
 

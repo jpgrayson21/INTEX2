@@ -12,19 +12,22 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "RDS_HOSTNAME": "aawxukxqq845f3.c9ysuq7mmxcj.us-east-1.rds.amazonaws.com",
+        "RDS_USERNAME": "awsDB",
+        "RDS_PASSWORD": "CZWddyLgXzjZZVCWWN6P2sxda6ed48ZF",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "INTEX": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
         "RDS_HOSTNAME": "aawxukxqq845f3.c9ysuq7mmxcj.us-east-1.rds.amazonaws.com",
+        "RDS_USERNAME": "awsDB",
         "RDS_PASSWORD": "CZWddyLgXzjZZVCWWN6P2sxda6ed48ZF",
-        "RDS_USERNAME": "awsDB"
-      }
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }
