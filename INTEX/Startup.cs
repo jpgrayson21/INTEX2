@@ -26,9 +26,10 @@ namespace INTEX
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //string connection = DbHelper.GetRDSConnectionString();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<ICrashRepository, EFCrashRepository>();
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -36,6 +37,11 @@ namespace INTEX
             services.AddDbContext<INTEXDbContext>(options =>
             {
                 options.UseMySql(DbHelper.GetRDSConnectionString("Identity"));
+            });
+
+            services.AddDbContext<CrashDbContext>(options =>
+            {
+                options.UseMySql(DbHelper.GetRDSConnectionString());
             });
         }
 

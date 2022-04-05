@@ -14,11 +14,13 @@ namespace INTEX.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
+        private ICrashRepository _repo { get; set; }
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICrashRepository temp)
         {
             _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
@@ -28,6 +30,12 @@ namespace INTEX.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public IActionResult CrashInfo()
+        {
+            ViewBag.crashes = _repo.Utah_Crashes.Take(10).ToList();
             return View();
         }
 
