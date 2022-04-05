@@ -1,3 +1,4 @@
+
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -29,9 +30,11 @@
     <None Remove="Areas\Identity\Services\" />
     <None Remove="AWSSDK.Core" />
     <None Remove="AWSSDK.SimpleEmail" />
+    <None Remove="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Views\Admin\" />
     <None Remove="Infrastructure\" />
     <None Remove="Models\ViewModels\" />
   </ItemGroup>

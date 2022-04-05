@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using INTEX.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav_item">
+        <a id="manage" class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="AddCollision" title="Admin">Add Collision</a>
+    </li>
+}
