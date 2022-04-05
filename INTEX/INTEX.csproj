@@ -1,3 +1,4 @@
+
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -33,9 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-<<<<<<< HEAD
     <Folder Include="Views\Admin\" />
-=======
     <None Remove="Infrastructure\" />
     <None Remove="Models\ViewModels\" />
   </ItemGroup>
@@ -56,6 +55,5 @@
     <None Include=".ebextension\02_grant_executable_rights.config" />
     <None Include=".ebextension\03_renew_ssl_certificate_cron_job.config" />
     <None Include=".platform\hooks\postdeploy\00_get_certificate.sh" />
->>>>>>> 9a745f181fe888ac6e9a539093ad7aa0ed8f25d2
   </ItemGroup>
 </Project>
