@@ -19,6 +19,8 @@ phases:
   post_build:
     commands:
       - dotnet publish -c Debug -o ./build_output ./INTEX/${PROJECT}.csproj --self-contained false
+      - cp -R ./.platform/ ./vuild_output
+      - cp -R ./.ebextensions/ ./build_output
 
 artifacts:
   files:
