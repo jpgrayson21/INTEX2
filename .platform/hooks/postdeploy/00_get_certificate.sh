@@ -1,0 +1,1 @@
+﻿sudo certbot -n -d utahcaps.net --nginx --agree-tos --email nathansbaker@gmail.com
