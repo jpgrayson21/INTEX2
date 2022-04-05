@@ -22,8 +22,14 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
+    <None Remove="Infrastructure\" />
+    <None Remove="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\js\qrcode.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
 </Project>

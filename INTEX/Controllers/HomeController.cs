@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using INTEX.Models.ViewModels;
 
 namespace INTEX.Controllers
 {
@@ -33,9 +34,19 @@ namespace INTEX.Controllers
             return View();
         }
 
-        public IActionResult CrashInfo()
+        public IActionResult CrashInfo(int pageNum = 1)
         {
-            ViewBag.crashes = _repo.Utah_Crashes.Take(10).ToList();
+            int pageSize = 20;
+
+            ViewBag.PageInfo = new PageInfo
+            {
+                TotalNumCrashes = _repo.Utah_Crashes.Count(),
+                CrashesPerPage = pageSize,
+                CurrentPage = pageNum
+            };
+
+            ViewBag.crashes = _repo.Utah_Crashes.Skip((pageNum - 1) * pageSize).Take(pageSize);
+
             return View();
         }
 
