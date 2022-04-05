@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using INTEX.Models.ViewModels;
 
 namespace INTEX.Controllers
 {
@@ -14,11 +15,13 @@ namespace INTEX.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
+        private ICrashRepository _repo { get; set; }
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICrashRepository temp)
         {
             _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
@@ -28,6 +31,22 @@ namespace INTEX.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public IActionResult CrashInfo(int pageNum = 1)
+        {
+            int pageSize = 20;
+
+            ViewBag.PageInfo = new PageInfo
+            {
+                TotalNumCrashes = _repo.Utah_Crashes.Count(),
+                CrashesPerPage = pageSize,
+                CurrentPage = pageNum
+            };
+
+            ViewBag.crashes = _repo.Utah_Crashes.Skip((pageNum - 1) * pageSize).Take(pageSize);
+
             return View();
         }
 
