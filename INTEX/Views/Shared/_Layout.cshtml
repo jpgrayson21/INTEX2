@@ -24,13 +24,13 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CrashInfo">Crash Log</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CrashInfo">Collisions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Accident Map</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Calculator</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Severity Calculator</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Quiz</a>
                         </li>
                     </ul>
                 </div>
@@ -41,12 +41,12 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3 bg-white rounded">
+        <main role="main" class="pb-3 bg-light rounded">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer bg-white text-muted">
         <div class="container">
              &copy; Utah CAPS 2022 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
