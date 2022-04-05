@@ -29,8 +29,10 @@
     <None Remove="Areas\Identity\Services\" />
     <None Remove="AWSSDK.Core" />
     <None Remove="AWSSDK.SimpleEmail" />
+    <None Remove="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
 </Project>
