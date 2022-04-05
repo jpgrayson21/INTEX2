@@ -23,5 +23,7 @@ phases:
 artifacts:
   files:
     - '**/*'
+    - '.platform/**/*'
+    - '.ebextensions/**/*'
   base-directory: ./build_output
   #'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
