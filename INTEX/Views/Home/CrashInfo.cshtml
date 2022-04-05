@@ -10,10 +10,38 @@
     <div class="row">
         @foreach (var c in ViewBag.crashes)
         {
+            
+                string bg_color = "white";
+                switch (c.CRASH_SEVERITY_ID)
+                {
+                    case 1:
+                        bg_color = "green";
+                        break;
+                    case 2:
+                        bg_color = "greenyellow";
+                        break;
+                    case 3:
+                        bg_color = "yellow";
+                        break;
+                    case 4:
+                        bg_color = "orange";
+                        break;
+                    case 5:
+                        bg_color = "red";
+                        break;
+                }
+
             <div class="col-6">
                 <div class="card my-1 mx-2 shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">@c.CRASH_DATETIME</h5>
+                        <span class="float-right">
+                            <h6>Severity: </h6>
+                            <span class="dot float-right" style="background-color: @bg_color">@c.CRASH_SEVERITY_ID</span>
+                        </span>
+                        <h5 class="card-title">@c.MAIN_ROAD_NAME</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@c.CRASH_DATETIME</h6>
+                        <p class="card-text">@(c.LAT_UTM_Y), @c.LONG_UTM_X<br />@(c.CITY), @(c.COUNTY_NAME)</p>
+                        <a class="stretched-link text-decoration-none" asp-action="CrashDetails" asp-route-id="@c.CRASH_ID"></a>
                     </div>
                 </div>
             </div>
@@ -25,3 +53,18 @@
         </div>
     </div>
 </div>
+
+<style>
+    .dot {
+        display: flex;
+        height: 60px;
+        width: 60px;
+        border-radius: 10%;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bolder;
+        font-size: xx-large;
+        text-shadow: -1px 1px 1px #000, 1px 1px 1px #000, 1px -1px 0 #000, -1px -1px 0 #000;
+    }
+</style>

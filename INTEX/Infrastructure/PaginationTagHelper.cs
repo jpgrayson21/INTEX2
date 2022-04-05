@@ -44,8 +44,7 @@ namespace INTEX.Infrastructure
                 left.InnerHtml.Append("<");
                 final.InnerHtml.AppendHtml(left);
             }
-
-            for (int i = 1; i <= 4; i++)
+            for(int i = 1; i <= 3; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
                 tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
@@ -66,6 +65,45 @@ namespace INTEX.Infrastructure
             dots.Attributes["disabled"] = "true";
             dots.InnerHtml.Append("...");
             final.InnerHtml.AppendHtml(dots);
+
+            if (PageModel.CurrentPage > 3 && PageModel.CurrentPage < PageModel.TotalPages - 3)
+            {
+                for (int i = PageModel.CurrentPage - 1; i <= PageModel.CurrentPage + 1; i++)
+                {
+                    TagBuilder tb = new TagBuilder("a");
+                    tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                    if (PageClassEnabled)
+                    {
+                        tb.AddCssClass(PageClass);
+                        tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    }
+                    tb.InnerHtml.Append(i.ToString());
+
+                    final.InnerHtml.AppendHtml(tb);
+                }
+
+                final.InnerHtml.AppendHtml(dots);
+            }
+            else
+            {
+                for (int i = (PageModel.TotalPages / 2) - 1; i <=(PageModel.TotalPages / 2) + 1; i++)
+                {
+                    TagBuilder tb = new TagBuilder("a");
+                    tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                    if (PageClassEnabled)
+                    {
+                        tb.AddCssClass(PageClass);
+                        tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    }
+                    tb.InnerHtml.Append(i.ToString());
+
+                    final.InnerHtml.AppendHtml(tb);
+                }
+
+                final.InnerHtml.AppendHtml(dots);
+            }
 
             for (int i = PageModel.TotalPages - 1; i <= PageModel.TotalPages; i++)
             {
@@ -91,6 +129,7 @@ namespace INTEX.Infrastructure
                 right.InnerHtml.Append(">");
                 final.InnerHtml.AppendHtml(right);
             }
+
 
             output.Content.AppendHtml(final.InnerHtml);
         }

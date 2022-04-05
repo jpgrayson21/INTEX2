@@ -50,6 +50,14 @@ namespace INTEX.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult CrashDetails(int id)
+        {
+            var crash = _repo.Utah_Crashes.FirstOrDefault(x => x.CRASH_ID == id);
+
+            return View(crash);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
