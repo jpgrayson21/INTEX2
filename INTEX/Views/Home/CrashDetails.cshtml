@@ -61,7 +61,7 @@
                 myScript.setAttribute("allowfullscreen", "");
                 myScript.setAttribute("loading", "lazy");
                 myScript.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
-                document.body.appendChild(myScript);
+                document.getElementById("StreetView").appendChild(myScript);
 
                 let placeView = document.createElement("iframe");
                 placeView.setAttribute("src", placeURL);
@@ -78,7 +78,7 @@
                 //long = data.snappedPoints[0].location.longitude;
             })
     })
-    
+
     //var config = {
     //    method: 'get',
     //    url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A',
@@ -94,7 +94,7 @@
     //        console.log(data);
     //        lat = data.snappedPoints[0].location.latitude;
     //        long = data.snappedPoints[0].location.longitude;
-  
+
 
     //    })
     //    .catch(function (error) {
@@ -109,3 +109,87 @@
 
 <h1>@Model.MAIN_ROAD_NAME</h1>
 
+<br />
+<div class="row">
+    <div class="col-6">
+        <div id="StreetView">
+            
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <h5 class="font-weight-bold">General Crash Info</h5>
+            <h6>City: @Model.CITY</h6>
+            <h6>County: @Model.COUNTY_NAME</h6>
+            <h6>Main road name: @Model.MAIN_ROAD_NAME</h6>
+            <h6>Milepoint: @Model.MILEPOINT</h6>
+            <h6>UTM Y: @Model.LAT_UTM_Y</h6>
+            <h6>UTM X: @Model.LONG_UTM_X</h6>
+            <h6>Date and Time: @Model.CRASH_DATETIME</h6>
+            <h6>Route: @Model.ROUTE</h6>
+        </div>
+        <h5>Crash Safety Flags</h5>
+        @foreach (var bag in ViewBag.Severities)
+        {
+            @if (bag.CRASH_SEVERITY_ID == Model.CRASH_SEVERITY_ID)
+            {
+                <h6>Crash severity: @bag.DESCRIPTION</h6>
+            }
+        }
+
+        @if (Model.DISTRACTED_DRIVING)
+        {
+            <h6>Distracted Driving: @Model.DISTRACTED_DRIVING</h6>
+        }
+        @if (Model.DROWSY_DRIVING)
+        {
+            <h6>Drowsy Driving: @Model.DROWSY_DRIVING</h6>}
+        @if (Model.DUI)
+        {
+            <h6>DUI: @Model.DUI</h6>}
+        @if (Model.IMPROPER_RESTRAINT)
+        {
+            <h6>Improper Restraint: @Model.IMPROPER_RESTRAINT</h6>}
+        @if (Model.UNRESTRAINED)
+        {
+            <h6>Unrestained: @Model.UNRESTRAINED</h6>}
+        <h5>Crash detail Flags</h5>
+        @if (Model.SINGLE_VEHICLE)
+        {
+            <h6>Single Vehicle: @Model.SINGLE_VEHICLE</h6>}
+        @if (Model.ROADWAY_DEPARTURE)
+        {
+            <h6>Roadway Departure: @Model.ROADWAY_DEPARTURE</h6>}
+        @if (Model.OVERTURN_ROLLOVER)
+        {
+            <h6>Overturned Vehicle: @Model.OVERTURN_ROLLOVER</h6>}
+        @if (Model.COMMERCIAL_MOTOR_VEH_INVOLVED)
+        {
+            <h6>Commercial Vehicle involved: @Model.COMMERCIAL_MOTOR_VEH_INVOLVED</h6>}
+        @if (Model.DOMESTIC_ANIMAL_RELATED)
+        {
+            <h6>Domestic Aniamal Related: @Model.DOMESTIC_ANIMAL_RELATED</h6>}
+        @if (Model.INTERSECTION_RELATED)
+        {
+            <h6>Intersection Related: @Model.INTERSECTION_RELATED</h6>}
+        @if (Model.MOTORCYCLE_INVOLVED)
+        {
+            <h6>Motorcycle Involved: @Model.MOTORCYCLE_INVOLVED</h6>}
+        @if (Model.NIGHT_DARK_CONDITION)
+        {
+            <h6>Night/Dark Conditions: @Model.NIGHT_DARK_CONDITION</h6>}
+        @if (Model.OLDER_DRIVER_INVOLVED)
+        {
+            <h6>Older Driver Involved: @Model.OLDER_DRIVER_INVOLVED</h6>}
+        @if (Model.TEENAGE_DRIVER_INVOLVED)
+        {
+            <h6>Teenage Driver Involved: @Model.TEENAGE_DRIVER_INVOLVED</h6>}
+        @if (Model.WILD_ANIMAL_RELATED)
+        {
+            <h6>Wild Animal Related: @Model.WILD_ANIMAL_RELATED</h6>}
+        @if (Model.WORK_ZONE_RELATED)
+        {
+            <h6>Work Zone: @Model.WORK_ZONE_RELATED</h6>}
+
+    </div>
+</div>
