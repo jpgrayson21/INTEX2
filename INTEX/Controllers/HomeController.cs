@@ -43,6 +43,7 @@ namespace INTEX.Controllers
         [HttpGet]
         public IActionResult CrashInfo(int pageNum = 1)
         {
+            ViewBag.post = false;
             int pageSize = 20;
 
             ViewBag.PageInfo = new PageInfo
@@ -57,9 +58,11 @@ namespace INTEX.Controllers
             return View();
         }
 
+        [Route("CrashInfo/{pageNum:int}")]
         [HttpPost]
         public IActionResult CrashInfo(Filter f, int pageNum = 1)
         {
+            ViewBag.post = true;
             int pageSize = 20;
 
             var crashes = _repo.Utah_Crashes;

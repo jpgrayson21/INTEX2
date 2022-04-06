@@ -7,7 +7,7 @@
 <div>
     <h1>Crash Data</h1>
 
-    <form class="px-1" method="post" asp-action="CrashInfo">
+    <form class="px-1" method="post" asp-action="CrashInfo" asp-route-pageNum="1">
         <div class="row">
             <div class="col-2">
                 <div class="card bg-white shadow">
@@ -169,7 +169,14 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        @if (ViewBag.post)
+                        {
+                        <div class="float-right mr-4" post-page-model="@ViewBag.PageInfo" post-page-action="CrashInfo" post-page-class="btn" post-page-class-normal="btn-outline-dark" post-page-class-selected="btn-dark" post-page-class-enabled="true" class="btn-group pull-right m-1"></div>
+                        }
+                        else
+                        {
                         <div class="float-right mr-4" page-model="@ViewBag.PageInfo" page-action="CrashInfo" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-dark" page-class-enabled="true" class="btn-group pull-right m-1"></div>
+                        }
                     </div>
                 </div>
             </div>

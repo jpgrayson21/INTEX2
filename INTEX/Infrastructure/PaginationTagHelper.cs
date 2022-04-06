@@ -78,7 +78,7 @@ namespace INTEX.Infrastructure
                     final.InnerHtml.AppendHtml(tb);
                 }
 
-                TagBuilder dots = new TagBuilder("btn");
+                TagBuilder dots = new TagBuilder("button");
                 dots.AddCssClass(PageClass);
                 dots.AddCssClass(PageClassNormal);
                 dots.Attributes["disabled"] = "true";
