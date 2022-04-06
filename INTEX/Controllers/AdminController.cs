@@ -26,13 +26,47 @@ namespace INTEX.Controllers
         public IActionResult AddCrash()
         {
             ViewBag.Severities = _repo.Severity.ToList();
-            return View();
+            return View("CrashForm");
         }
 
         [HttpPost]
         public IActionResult AddCrash(Crash crash)
         {
             _repo.AddCrash(crash);
+            int crashId = crash.CRASH_ID;
+
+            return RedirectToAction("CrashDetails", new { Controller = "Home", id = crashId });
+        }
+
+        [HttpGet]
+        public IActionResult EditCrash(int id)
+        {
+            ViewBag.Severities = _repo.Severity.ToList();
+            var crash = _repo.Utah_Crashes.FirstOrDefault(x => x.CRASH_ID == id);
+
+            return View("CrashForm", crash);
+        }
+
+        [HttpPost]
+        public IActionResult EditCrash(Crash crash)
+        {
+            _repo.EditCrash(crash);
+            int crashId = crash.CRASH_ID;
+
+            return RedirectToAction("CrashDetails", new { Controller = "Home", id = crashId });
+        }
+
+        [HttpGet]
+        public IActionResult DeleteCrash(int id)
+        {
+            Crash crash = _repo.Utah_Crashes.FirstOrDefault(x => x.CRASH_ID == id);
+            return View(crash);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCrash(Crash crash)
+        {
+            _repo.RemoveCrash(crash);
             return RedirectToAction("CrashInfo", new { Controller = "Home" });
         }
 
