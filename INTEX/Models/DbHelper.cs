@@ -10,20 +10,16 @@ namespace INTEX.Models
 {
     public static class DbHelper
     {
-        //public static string GetRDSConnectionString()
-        //{
-        //    var appConfig = ConfigurationManager.AppSettings;
+        public static string GetRDSConnectionString(string dbname = "UCAPS")
+        {
+            if (string.IsNullOrEmpty(dbname)) return null;
 
-        //    string dbname = appConfig["RDS_DB_NAME"];
+            string username = Environment.GetEnvironmentVariable("RDS_USERNAME");
+            string password = Environment.GetEnvironmentVariable("RDS_PASSWORD");
+            string hostname = Environment.GetEnvironmentVariable("RDS_HOSTNAME");
+            string port = "3306";
 
-        //    if (string.IsNullOrEmpty(dbname)) return null;
-
-        //    string username = appConfig["RDS_USERNAME"];
-        //    string password = appConfig["RDS_PASSWORD"];
-        //    string hostname = appConfig["RDS_HOSTNAME"];
-        //    string port = appConfig["RDS_PORT"];
-
-        //    return "Data Source=" + hostname + ";Initial Catalog=" + dbname + ";User ID=" + username + ";Password=" + password + ";";
-        //}
+            return "Data Source=" + hostname + ";Initial Catalog=" + dbname + ";User ID=" + username + ";Password=" + password + ";";
+        }
     }
 }

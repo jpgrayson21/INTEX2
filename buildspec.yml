@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    PROJECT: INTEX2
+    PROJECT: INTEX
     DOTNET_CORE_RUNTIME: 3.1
 phases:
 
@@ -13,8 +13,15 @@ phases:
   build:
     commands:
       - dotnet restore
-      - msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+      - dotnet build -c Debug
+      #- msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+
+  post_build:
+    commands:
+      - dotnet publish -c Debug -o ./build_output ./INTEX/${PROJECT}.csproj --self-contained false
+
 artifacts:
   files:
     - '**/*'
-  base-directory: 'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
+  base-directory: ./build_output
+  #'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'

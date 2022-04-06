@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,16 +27,22 @@ namespace INTEX
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //string connection = DbHelper.GetRDSConnectionString();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<ICrashRepository, EFCrashRepository>();
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<INTEXDbContext>(options =>
             {
-                options.UseMySql(Configuration["connection2Db"]);
+                options.UseMySql(DbHelper.GetRDSConnectionString("Identity"));
+            });
+
+            services.AddDbContext<CrashDbContext>(options =>
+            {
+                options.UseMySql(DbHelper.GetRDSConnectionString());
             });
         }
 

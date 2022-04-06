@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using INTEX.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a class="btn btn-secondary text-white" asp-controller="Admin" asp-action="EditCrash" asp-route-id="@Model.CRASH_ID">Edit</a>
+    <a class="btn btn-danger text-white" asp-controller="Admin" asp-action="DeleteCrash" asp-route-id="@Model.CRASH_ID">Delete</a>
+}
