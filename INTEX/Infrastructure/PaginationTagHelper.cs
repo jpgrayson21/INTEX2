@@ -40,7 +40,7 @@ namespace INTEX.Infrastructure
                 for (int i = 1; i <= PageModel.TotalPages; i++)
                 {
                     TagBuilder tb = new TagBuilder("a");
-                    tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+                    tb.Attributes["href"] = uh.Action(new UrlActionContext{ Action = PageAction, Controller = "Home", Values = new { pageNum = i }});
 
                     if (PageClassEnabled)
                     {
@@ -57,7 +57,7 @@ namespace INTEX.Infrastructure
                 if (PageModel.CurrentPage != 1)
                 {
                     TagBuilder left = new TagBuilder("a");
-                    left.Attributes["href"] = uh.Action(PageAction, new { pageNum = PageModel.CurrentPage - 1 });
+                    left.Attributes["href"] = uh.Action(PageAction, "Home", new { pageNum = PageModel.CurrentPage - 1 });
                     left.AddCssClass(PageClass);
                     left.AddCssClass(PageClassNormal);
                     left.InnerHtml.Append("<");
@@ -66,7 +66,7 @@ namespace INTEX.Infrastructure
                 for (int i = 1; i <= 3; i++)
                 {
                     TagBuilder tb = new TagBuilder("a");
-                    tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+                    tb.Attributes["href"] = uh.Action(PageAction, "Home", new { pageNum = i });
 
                     if (PageClassEnabled)
                     {
@@ -90,7 +90,7 @@ namespace INTEX.Infrastructure
                     for (int i = PageModel.CurrentPage - 1; i <= PageModel.CurrentPage + 1; i++)
                     {
                         TagBuilder tb = new TagBuilder("a");
-                        tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+                        tb.Attributes["href"] = uh.Action(PageAction, "Home", new { pageNum = i });
 
                         if (PageClassEnabled)
                         {
@@ -109,7 +109,7 @@ namespace INTEX.Infrastructure
                     for (int i = (PageModel.TotalPages / 2) - 1; i <= (PageModel.TotalPages / 2) + 1; i++)
                     {
                         TagBuilder tb = new TagBuilder("a");
-                        tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+                        tb.Attributes["href"] = uh.Action(PageAction, "Home", new { pageNum = i });
 
                         if (PageClassEnabled)
                         {
@@ -127,7 +127,7 @@ namespace INTEX.Infrastructure
                 for (int i = PageModel.TotalPages - 1; i <= PageModel.TotalPages; i++)
                 {
                     TagBuilder tb = new TagBuilder("a");
-                    tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+                    tb.Attributes["href"] = uh.Action(PageAction, "Home", new { pageNum = i });
 
                     if (PageClassEnabled)
                     {
@@ -142,7 +142,7 @@ namespace INTEX.Infrastructure
                 if (PageModel.CurrentPage != PageModel.TotalPages)
                 {
                     TagBuilder right = new TagBuilder("a");
-                    right.Attributes["href"] = uh.Action(PageAction, new { pageNum = PageModel.CurrentPage + 1 });
+                    right.Attributes["href"] = uh.Action(new UrlActionContext { Action = PageAction, Controller = "Home", Values = new { pageNum = PageModel.CurrentPage + 1 } });
                     right.AddCssClass(PageClass);
                     right.AddCssClass(PageClassNormal);
                     right.InnerHtml.Append(">");

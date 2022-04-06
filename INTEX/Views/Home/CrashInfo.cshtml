@@ -4,7 +4,7 @@
 
 @model Filter
 
-<div>
+<div class="container">
     <h1>Crash Data</h1>
 
     <form class="px-1" method="post" asp-action="CrashInfo" asp-route-pageNum="1">
@@ -175,6 +175,7 @@
                         }
                         else
                         {
+                            <a href="http://google.com">GOOGLE</a>
                         <div class="float-right mr-4" page-model="@ViewBag.PageInfo" page-action="CrashInfo" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-dark" page-class-enabled="true" class="btn-group pull-right m-1"></div>
                         }
                     </div>

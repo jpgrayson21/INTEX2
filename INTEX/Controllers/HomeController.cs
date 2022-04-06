@@ -40,6 +40,7 @@ namespace INTEX.Controllers
             return View();
         }
 
+        [Route("CrashInfo/{pageNum:int?}")]
         [HttpGet]
         public IActionResult CrashInfo(int pageNum = 1)
         {
