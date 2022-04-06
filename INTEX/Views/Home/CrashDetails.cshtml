@@ -5,5 +5,21 @@
 }
 
 @model Crash
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+<script>
+    let lat;
+    let long;
+
+    axios.post('https://7o1vcvfox2.execute-api.us-east-1.amazonaws.com/default/utmToLatLong', {
+        "body": "{\"utmX\": @Model.LONG_UTM_X,\"utmY\": @Model.LAT_UTM_Y}"
+    }).then(res => {
+        let data = JSON.parse(res.data);
+        lat = data.lat;
+        long = data.lon;
+        console.log("Lat: " + lat);
+        console.log("Long: " + long)
+    })
+</script>
 
 <h1>@Model.MAIN_ROAD_NAME</h1>
