@@ -6,7 +6,6 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav_item">
-        <a id="manage" class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="AddCrash" title="Admin">Add Collision</a>
-    </li>
+    <a class="btn btn-secondary text-white" asp-controller="Admin" asp-action="EditCrash" asp-route-id="@Model.CRASH_ID">Edit</a>
+    <a class="btn btn-danger text-white" asp-controller="Admin" asp-action="DeleteCrash" asp-route-id="@Model.CRASH_ID">Delete</a>
 }
