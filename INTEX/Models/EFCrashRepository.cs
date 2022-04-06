@@ -17,12 +17,14 @@ namespace INTEX.Models
 
         public void AddCrash(Crash c)
         {
+            c = UpperStrings(c);
             _context.Utah_Crashes.Add(c);
             _context.SaveChanges();
         }
 
         public void EditCrash(Crash c)
         {
+            c = UpperStrings(c);
             _context.Utah_Crashes.Update(c);
             _context.SaveChanges();
         }
@@ -31,6 +33,19 @@ namespace INTEX.Models
         {
             _context.Utah_Crashes.Remove(c);
             _context.SaveChanges();
+        }
+
+        public Crash UpperStrings(Crash c)
+        {
+            if (c.ROUTE != null)
+            {
+                c.ROUTE = c.ROUTE.ToUpper();
+            }
+            c.MAIN_ROAD_NAME = c.MAIN_ROAD_NAME.ToUpper();
+            c.CITY = c.CITY.ToUpper();
+            c.COUNTY_NAME = c.COUNTY_NAME.ToUpper();
+
+            return c;
         }
     }
 }
