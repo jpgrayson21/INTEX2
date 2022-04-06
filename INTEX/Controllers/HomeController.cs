@@ -190,7 +190,7 @@ namespace INTEX.Controllers
         public IActionResult CrashDetails(int id)
         {
             var crash = _repo.Utah_Crashes.FirstOrDefault(x => x.CRASH_ID == id);
-
+            ViewBag.Severities = _repo.Severity.ToList();
             return View(crash);
         }
 
