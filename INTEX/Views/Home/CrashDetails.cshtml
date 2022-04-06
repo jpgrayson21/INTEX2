@@ -1,7 +1,194 @@
-﻿@{
+﻿@model Crash
+
+@{
+    ViewData["Title"] = "Crash Details";
 }
 
-@model Crash
+<div class="container bg-white rounded py-3 px-5 shadow">
+    <div class="row my-3">
+        <div class="col-10">
+            <h1>@Model.MAIN_ROAD_NAME</h1>
+            <h4>@Model.CRASH_DATETIME</h4>
+        </div>
+        <div class="col-2">
+            <partial name="~/Views/Shared/_AdminPartial.cshtml" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div id="StreetView"></div>
+        </div>
+
+        <div class="card col-4">
+            <div class="card-header bg-white">
+                <div class="row">
+                    <div class="col">
+                        <h2>Severity: </h2>
+                        @foreach (var bag in ViewBag.Severities)
+                        {
+                            @if (bag.CRASH_SEVERITY_ID == Model.CRASH_SEVERITY_ID)
+                            {
+                                <h6>@bag.DESCRIPTION</h6>
+                            }
+                        }
+                    </div>
+                    <div class="col-3">
+                        <span class="box border border-dark" style="background-color:@ViewBag.Color">@Model.CRASH_SEVERITY_ID</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5>@Model.CITY, @Model.COUNTY_NAME</h5>
+                <h6>(@Model.LAT_UTM_Y, @Model.LONG_UTM_X)</h6>
+
+                @if (Model.ROUTE != null & Model.MILEPOINT != null)
+                {
+                    <h6>Mile @Model.MILEPOINT on Route @Model.ROUTE</h6>
+                }
+                else if (Model.ROUTE == null & Model.MILEPOINT != null)
+                {
+                    <h6>Mile @Model.MILEPOINT on Unknown Route</h6>
+                }
+                else if (Model.ROUTE != null & Model.MILEPOINT == null)
+                {
+                    <h6>Unknown Milepoint on Route @Model.ROUTE</h6>
+                }
+                else
+                {
+                    <h6>Milepoint and Route info are Unknown</h6>
+                }
+                <hr />
+
+                @* Crash Flags *@
+                <div>
+                    <ul>
+                        @if (Model.DISTRACTED_DRIVING)
+                        {
+                            <li>
+                                <h6>Distracted Driving</h6>
+                            </li>
+                        }
+
+                        @if (Model.DROWSY_DRIVING)
+                        {
+                            <li>
+                                <h6>Drowsy Driving</h6>
+                            </li>
+                        }
+
+                        @if (Model.DUI)
+                        {
+                            <li>
+                                <h6>Driving Under the Influence</h6>
+                            </li>
+                        }
+
+                        @if (Model.IMPROPER_RESTRAINT)
+                        {
+                            <li>
+                                <h6>Improper Restraint</h6>
+                            </li>
+                        }
+
+                        @if (Model.UNRESTRAINED)
+                        {
+                            <li>
+                                <h6>Unrestrained</h6>
+                            </li>
+                        }
+
+                        @if (Model.SINGLE_VEHICLE)
+                        {
+                            <li>
+                                <h6>Single Vehicle</h6>
+                            </li>
+                        }
+
+                        @if (Model.ROADWAY_DEPARTURE)
+                        {
+                            <li>
+                                <h6>Roadway Departure</h6>
+                            </li>
+                        }
+
+                        @if (Model.OVERTURN_ROLLOVER)
+                        {
+                            <li>
+                                <h6>Overturn/Rollover</h6>
+                            </li>
+                        }
+
+                        @if (Model.COMMERCIAL_MOTOR_VEH_INVOLVED)
+                        {
+                            <li>
+                                <h6>Commercial Vehical Involved</h6>
+                            </li>
+                        }
+
+                        @if (Model.DOMESTIC_ANIMAL_RELATED)
+                        {
+                            <li>
+                                <h6>Domestic Animal Related</h6>
+                            </li>
+                        }
+
+                        @if (Model.INTERSECTION_RELATED)
+                        {
+                            <li>
+                                <h6>Intersection Related</h6>
+                            </li>
+                        }
+
+                        @if (Model.MOTORCYCLE_INVOLVED)
+                        {
+                            <li>
+                                <h6>Motorcycle Involved</h6>
+                            </li>
+                        }
+
+                        @if (Model.NIGHT_DARK_CONDITION)
+                        {
+                            <li>
+                                <h6>Night/Dark Condition</h6>
+                            </li>
+                        }
+
+                        @if (Model.OLDER_DRIVER_INVOLVED)
+                        {
+                            <li>
+                                <h6>Senior Driver Involved</h6>
+                            </li>
+                        }
+
+                        @if (Model.TEENAGE_DRIVER_INVOLVED)
+                        {
+                            <li>
+                                <h6>Teenage Driver Involved</h6>
+                            </li>
+                        }
+
+                        @if (Model.WILD_ANIMAL_RELATED)
+                        {
+                            <li>
+                                <h6>Wild Animal Related</h6>
+                            </li>
+                        }
+
+                        @if (Model.WORK_ZONE_RELATED)
+                        {
+                            <li>
+                                <h6>Work Zone Related</h6>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 
 <script>
@@ -51,8 +238,8 @@
 
                 let myScript= document.createElement("iframe");
                 myScript.setAttribute("src", newURL);
-                myScript.setAttribute("width", "500");
-                myScript.setAttribute("height", "380");
+                myScript.setAttribute("width", "100%");
+                myScript.setAttribute("height", "500");
                 myScript.setAttribute("style", "border:0;");
                 myScript.setAttribute("frameborder", "0");
                 myScript.setAttribute("allowfullscreen", "");
@@ -62,8 +249,8 @@
 
                 let placeView = document.createElement("iframe");
                 placeView.setAttribute("src", placeURL);
-                placeView.setAttribute("width", "500");
-                placeView.setAttribute("height", "380");
+                placeView.setAttribute("width", "100%");
+                placeView.setAttribute("height", "700");
                 placeView.setAttribute("style", "border:0;");
                 placeView.setAttribute("frameborder", "0");
                 placeView.setAttribute("allowfullscreen", "");
@@ -103,100 +290,3 @@
     //imgTag.setAttribute("src", img_url);
     //document.body.appendChild(imgTag);
 </script>
-<div class="container">
-    <div class="row">
-        <h1>@Model.MAIN_ROAD_NAME</h1>
-
-        <div class="float-right">
-            <partial name="~/Views/Shared/_AdminPartial.cshtml" />
-        </div>
-    </div>
-    <br />
-    <div class="row bg-dark ">
-        <div class="col">
-            <div id="StreetView">
-
-            </div>
-        </div>
-        <div class="col">
-            <div class="card bg-light">
-                <h5 class="font-weight-bold">General Crash Info</h5>
-                <h6>City: @Model.CITY</h6>
-                <h6>County: @Model.COUNTY_NAME</h6>
-                <h6>Main road name: @Model.MAIN_ROAD_NAME</h6>
-                <h6>Milepoint: @Model.MILEPOINT</h6>
-                <h6>UTM Y: @Model.LAT_UTM_Y</h6>
-                <h6>UTM X: @Model.LONG_UTM_X</h6>
-                <h6>Date and Time: @Model.CRASH_DATETIME</h6>
-                <h6>Route: @Model.ROUTE</h6>
-            </div>
-            <div class="card bg-light">
-                <h5 class="font-weight-bold">Crash Safety Flags</h5>
-                @foreach (var bag in ViewBag.Severities)
-                {
-                    @if (bag.CRASH_SEVERITY_ID == Model.CRASH_SEVERITY_ID)
-                    {
-                        <h6>Crash severity: @bag.DESCRIPTION</h6>
-                    }
-                }
-
-                @if (Model.DISTRACTED_DRIVING)
-                {
-                    <h6>Distracted Driving: @Model.DISTRACTED_DRIVING</h6>
-                }
-                @if (Model.DROWSY_DRIVING)
-                {
-                    <h6>Drowsy Driving: @Model.DROWSY_DRIVING</h6>}
-                @if (Model.DUI)
-                {
-                    <h6>DUI: @Model.DUI</h6>}
-                @if (Model.IMPROPER_RESTRAINT)
-                {
-                    <h6>Improper Restraint: @Model.IMPROPER_RESTRAINT</h6>}
-                @if (Model.UNRESTRAINED)
-                {
-                    <h6>Unrestained: @Model.UNRESTRAINED</h6>}
-            </div>
-            <div class="card bg-light">
-                <h5 class="font-weight-bold">Crash detail Flags</h5>
-                @if (Model.SINGLE_VEHICLE)
-                {
-                    <h6>Single Vehicle: @Model.SINGLE_VEHICLE</h6>}
-                @if (Model.ROADWAY_DEPARTURE)
-                {
-                    <h6>Roadway Departure: @Model.ROADWAY_DEPARTURE</h6>}
-                @if (Model.OVERTURN_ROLLOVER)
-                {
-                    <h6>Overturned Vehicle: @Model.OVERTURN_ROLLOVER</h6>}
-                @if (Model.COMMERCIAL_MOTOR_VEH_INVOLVED)
-                {
-                    <h6>Commercial Vehicle involved: @Model.COMMERCIAL_MOTOR_VEH_INVOLVED</h6>}
-                @if (Model.DOMESTIC_ANIMAL_RELATED)
-                {
-                    <h6>Domestic Aniamal Related: @Model.DOMESTIC_ANIMAL_RELATED</h6>}
-                @if (Model.INTERSECTION_RELATED)
-                {
-                    <h6>Intersection Related: @Model.INTERSECTION_RELATED</h6>}
-                @if (Model.MOTORCYCLE_INVOLVED)
-                {
-                    <h6>Motorcycle Involved: @Model.MOTORCYCLE_INVOLVED</h6>}
-                @if (Model.NIGHT_DARK_CONDITION)
-                {
-                    <h6>Night/Dark Conditions: @Model.NIGHT_DARK_CONDITION</h6>}
-                @if (Model.OLDER_DRIVER_INVOLVED)
-                {
-                    <h6>Older Driver Involved: @Model.OLDER_DRIVER_INVOLVED</h6>}
-                @if (Model.TEENAGE_DRIVER_INVOLVED)
-                {
-                    <h6>Teenage Driver Involved: @Model.TEENAGE_DRIVER_INVOLVED</h6>}
-                @if (Model.WILD_ANIMAL_RELATED)
-                {
-                    <h6>Wild Animal Related: @Model.WILD_ANIMAL_RELATED</h6>}
-                @if (Model.WORK_ZONE_RELATED)
-                {
-                    <h6>Work Zone: @Model.WORK_ZONE_RELATED</h6>}
-            </div>
-        </div>
-    </div>
-
-</div>
