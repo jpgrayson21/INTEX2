@@ -2,6 +2,107 @@
 }
 
 @model Crash
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+<script>
+    let lat;
+    let long;
+    let addr;
+
+    axios.post('https://7o1vcvfox2.execute-api.us-east-1.amazonaws.com/default/utmToLatLong', {
+        "body": "{\"utmX\": @Model.LONG_UTM_X,\"utmY\": @Model.LAT_UTM_Y}"
+    }).then(res => {
+        let data = JSON.parse(res.data);
+        lat = data.lat;
+        long = data.lon;
+        console.log("Lat: " + lat);
+        console.log("Long: " + long);
+        console.log("sanity check");
+
+        let moreUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A';
+
+        axios(moreUrl)
+            .then(function (response) {
+
+                console.log("Lat: " + lat);
+                console.log("Long: " + long);
+                console.log("sanity check 2");
+                //let data = JSON.parse(response.data);
+                console.log("data",response.data.results[0].formatted_address);
+                addr = response.data.results[0].formatted_address.replaceAll(", ",",").replaceAll(" ","+");
+                console.log(addr);
+                //let coords = parseFloat(lat).toFixed(5).toString() + "," + parseFloat(long).toFixed(5).toString();
+                let coords = lat + "," + long;
+                console.log("coords:",coords)
+
+                let newURL = "https://www.google.com/maps/embed/v1/streetview" +
+                    "?key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A" +
+                    "&location=" + coords+
+                    "&heading=210" +
+                    "&pitch=10" +
+                    "&fov=90";
+
+                let placeURL = "https://www.google.com/maps/embed/v1/place" +
+                    "?key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A" +
+                    "&q=" + addr +
+                    "&center=" + coords
+                    "&zoom=16";
+                //const img_url = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=" + lat + "," + long + "&heading=151.78&pitch=-0.76&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A";
+
+                let myScript= document.createElement("iframe");
+                myScript.setAttribute("src", newURL);
+                myScript.setAttribute("width", "500");
+                myScript.setAttribute("height", "380");
+                myScript.setAttribute("style", "border:0;");
+                myScript.setAttribute("frameborder", "0");
+                myScript.setAttribute("allowfullscreen", "");
+                myScript.setAttribute("loading", "lazy");
+                myScript.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+                document.body.appendChild(myScript);
+
+                let placeView = document.createElement("iframe");
+                placeView.setAttribute("src", placeURL);
+                placeView.setAttribute("width", "500");
+                placeView.setAttribute("height", "380");
+                placeView.setAttribute("style", "border:0;");
+                placeView.setAttribute("frameborder", "0");
+                placeView.setAttribute("allowfullscreen", "");
+                placeView.setAttribute("loading", "lazy");
+                placeView.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+                document.body.appendChild(placeView);
+
+                //lat = data.snappedPoints[0].location.latitude;
+                //long = data.snappedPoints[0].location.longitude;
+            })
+    })
+    
+    //var config = {
+    //    method: 'get',
+    //    url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A',
+    //        //'https://roads.googleapis.com/v1/nearestRoads?points=' + lat + '%2C' + long + '&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A',
+    //    headers: {}
+    //};
+    //let moreUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A';
+
+    //axios(moreUrl)
+    //    .then(function (response) {
+    //        console.log("sanity check 3");
+    //        let data = JSON.parse(response.data);
+    //        console.log(data);
+    //        lat = data.snappedPoints[0].location.latitude;
+    //        long = data.snappedPoints[0].location.longitude;
+  
+
+    //    })
+    //    .catch(function (error) {
+    //        console.log(error);
+    //    });
+
+    //let imgTag = document.createElement("img");
+    //const img_url = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=" + lat + "," + long + "&heading=151.78&pitch=-0.76&key=AIzaSyDbMfrJkOsAaEwi7fHIYoq8vTRhdvpDE3A";
+    //imgTag.setAttribute("src", img_url);
+    //document.body.appendChild(imgTag);
+</script>
 
 <h1>@Model.MAIN_ROAD_NAME</h1>
 
@@ -9,3 +110,4 @@
     <a class="btn btn-secondary text-white" asp-controller="Admin" asp-action="EditCrash" asp-route-id="@Model.CRASH_ID">Edit</a>
     <a class="btn btn-danger text-white" asp-controller="Admin" asp-action="DeleteCrash" asp-route-id="@Model.CRASH_ID">Delete</a>
 </div>
+
