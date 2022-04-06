@@ -35,40 +35,9 @@ namespace INTEX.Infrastructure
 
             TagBuilder final = new TagBuilder("div");
 
-            if(PageModel.CurrentPage != 1)
+            if (PageModel.TotalPages < 11)
             {
-                TagBuilder left = new TagBuilder("a");
-                left.Attributes["href"] = uh.Action(PageAction, new { pageNum = PageModel.CurrentPage - 1 });
-                left.AddCssClass(PageClass);
-                left.AddCssClass(PageClassNormal);
-                left.InnerHtml.Append("<");
-                final.InnerHtml.AppendHtml(left);
-            }
-            for(int i = 1; i <= 3; i++)
-            {
-                TagBuilder tb = new TagBuilder("a");
-                tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
-
-                if (PageClassEnabled)
-                {
-                    tb.AddCssClass(PageClass);
-                    tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
-                }
-                tb.InnerHtml.Append(i.ToString());
-
-                final.InnerHtml.AppendHtml(tb);
-            }
-
-            TagBuilder dots = new TagBuilder("btn");
-            dots.AddCssClass(PageClass);
-            dots.AddCssClass(PageClassNormal);
-            dots.Attributes["disabled"] = "true";
-            dots.InnerHtml.Append("...");
-            final.InnerHtml.AppendHtml(dots);
-
-            if (PageModel.CurrentPage > 3 && PageModel.CurrentPage < PageModel.TotalPages - 3)
-            {
-                for (int i = PageModel.CurrentPage - 1; i <= PageModel.CurrentPage + 1; i++)
+                for (int i = 1; i <= PageModel.TotalPages; i++)
                 {
                     TagBuilder tb = new TagBuilder("a");
                     tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
@@ -82,12 +51,19 @@ namespace INTEX.Infrastructure
 
                     final.InnerHtml.AppendHtml(tb);
                 }
-
-                final.InnerHtml.AppendHtml(dots);
             }
             else
             {
-                for (int i = (PageModel.TotalPages / 2) - 1; i <=(PageModel.TotalPages / 2) + 1; i++)
+                if (PageModel.CurrentPage != 1)
+                {
+                    TagBuilder left = new TagBuilder("a");
+                    left.Attributes["href"] = uh.Action(PageAction, new { pageNum = PageModel.CurrentPage - 1 });
+                    left.AddCssClass(PageClass);
+                    left.AddCssClass(PageClassNormal);
+                    left.InnerHtml.Append("<");
+                    final.InnerHtml.AppendHtml(left);
+                }
+                for (int i = 1; i <= 3; i++)
                 {
                     TagBuilder tb = new TagBuilder("a");
                     tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
@@ -102,34 +78,77 @@ namespace INTEX.Infrastructure
                     final.InnerHtml.AppendHtml(tb);
                 }
 
+                TagBuilder dots = new TagBuilder("btn");
+                dots.AddCssClass(PageClass);
+                dots.AddCssClass(PageClassNormal);
+                dots.Attributes["disabled"] = "true";
+                dots.InnerHtml.Append("...");
                 final.InnerHtml.AppendHtml(dots);
-            }
 
-            for (int i = PageModel.TotalPages - 1; i <= PageModel.TotalPages; i++)
-            {
-                TagBuilder tb = new TagBuilder("a");
-                tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
-
-                if (PageClassEnabled)
+                if (PageModel.CurrentPage > 3 && PageModel.CurrentPage < PageModel.TotalPages - 3)
                 {
-                    tb.AddCssClass(PageClass);
-                    tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    for (int i = PageModel.CurrentPage - 1; i <= PageModel.CurrentPage + 1; i++)
+                    {
+                        TagBuilder tb = new TagBuilder("a");
+                        tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                        if (PageClassEnabled)
+                        {
+                            tb.AddCssClass(PageClass);
+                            tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                        }
+                        tb.InnerHtml.Append(i.ToString());
+
+                        final.InnerHtml.AppendHtml(tb);
+                    }
+
+                    final.InnerHtml.AppendHtml(dots);
                 }
-                tb.InnerHtml.Append(i.ToString());
+                else
+                {
+                    for (int i = (PageModel.TotalPages / 2) - 1; i <= (PageModel.TotalPages / 2) + 1; i++)
+                    {
+                        TagBuilder tb = new TagBuilder("a");
+                        tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
 
-                final.InnerHtml.AppendHtml(tb);
+                        if (PageClassEnabled)
+                        {
+                            tb.AddCssClass(PageClass);
+                            tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                        }
+                        tb.InnerHtml.Append(i.ToString());
+
+                        final.InnerHtml.AppendHtml(tb);
+                    }
+
+                    final.InnerHtml.AppendHtml(dots);
+                }
+
+                for (int i = PageModel.TotalPages - 1; i <= PageModel.TotalPages; i++)
+                {
+                    TagBuilder tb = new TagBuilder("a");
+                    tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                    if (PageClassEnabled)
+                    {
+                        tb.AddCssClass(PageClass);
+                        tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    }
+                    tb.InnerHtml.Append(i.ToString());
+
+                    final.InnerHtml.AppendHtml(tb);
+                }
+
+                if (PageModel.CurrentPage != PageModel.TotalPages)
+                {
+                    TagBuilder right = new TagBuilder("a");
+                    right.Attributes["href"] = uh.Action(PageAction, new { pageNum = PageModel.CurrentPage + 1 });
+                    right.AddCssClass(PageClass);
+                    right.AddCssClass(PageClassNormal);
+                    right.InnerHtml.Append(">");
+                    final.InnerHtml.AppendHtml(right);
+                }
             }
-
-            if (PageModel.CurrentPage != PageModel.TotalPages)
-            {
-                TagBuilder right = new TagBuilder("a");
-                right.Attributes["href"] = uh.Action(PageAction, new { pageNum = PageModel.CurrentPage + 1 });
-                right.AddCssClass(PageClass);
-                right.AddCssClass(PageClassNormal);
-                right.InnerHtml.Append(">");
-                final.InnerHtml.AppendHtml(right);
-            }
-
 
             output.Content.AppendHtml(final.InnerHtml);
         }

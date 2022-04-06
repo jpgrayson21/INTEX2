@@ -1,61 +1,184 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+
+@model Filter
 
 <div>
     <h1>Crash Data</h1>
 
-    <div class="row">
-        @foreach (var c in ViewBag.crashes)
-        {
-            
-                string bg_color = "white";
-                switch (c.CRASH_SEVERITY_ID)
-                {
-                    case 1:
-                        bg_color = "green";
-                        break;
-                    case 2:
-                        bg_color = "greenyellow";
-                        break;
-                    case 3:
-                        bg_color = "yellow";
-                        break;
-                    case 4:
-                        bg_color = "orange";
-                        break;
-                    case 5:
-                        bg_color = "red";
-                        break;
-                }
+    <form class="px-1" method="post" asp-action="CrashInfo">
+        <div class="row">
+            <div class="col-2">
+                <div class="card bg-white shadow">
+                    <h3 class="pt-2 px-1">Filters:</h3>
+                    <div class="px-1">
+                        <div class="form-group">
+                            <label style="font-weight: 600" asp-for="CRASH_DATETIME">Day of Accident:</label>
+                            <input type="date" id="date" class="form-control px-3" asp-for="CRASH_DATETIME" />
+                        </div>
+                        <label style="font-weight: 600">Severity:</label>
+                        <div class="text-center">
+                            <div class="btn-group">
+                                <input type="checkbox" class="btn-check" asp-for="CRASH_SEVERITY_1">
+                                <label class="btn btn-outline-secondary" asp-for="CRASH_SEVERITY_1">1</label>
 
-            <div class="col-6">
-                <div class="card my-1 mx-2 shadow-sm">
-                    <div class="card-body">
-                        <span class="float-right">
-                            <h6>Severity: </h6>
-                            <span class="dot float-right" style="background-color: @bg_color">@c.CRASH_SEVERITY_ID</span>
-                        </span>
-                        <h5 class="card-title">@c.MAIN_ROAD_NAME</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@c.CRASH_DATETIME</h6>
-                        <p class="card-text">@(c.LAT_UTM_Y), @c.LONG_UTM_X<br />@(c.CITY), @(c.COUNTY_NAME)</p>
-                        <a class="stretched-link text-decoration-none" asp-action="CrashDetails" asp-route-id="@c.CRASH_ID"></a>
+                                <input type="checkbox" class="btn-check" asp-for="CRASH_SEVERITY_2">
+                                <label class="btn btn-outline-secondary" asp-for="CRASH_SEVERITY_2">2</label>
+
+                                <input type="checkbox" class="btn-check" asp-for="CRASH_SEVERITY_3">
+                                <label class="btn btn-outline-secondary" asp-for="CRASH_SEVERITY_3">3</label>
+
+                                <input type="checkbox" class="btn-check" asp-for="CRASH_SEVERITY_4">
+                                <label class="btn btn-outline-secondary" asp-for="CRASH_SEVERITY_4">4</label>
+
+                                <input type="checkbox" class="btn-check" asp-for="CRASH_SEVERITY_5">
+                                <label class="btn btn-outline-secondary" asp-for="CRASH_SEVERITY_5">5</label>
+                            </div>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="WORK_ZONE_RELATED">
+                            <label class="form-check-label" asp-for="WORK_ZONE_RELATED">Workzone Related</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="PEDESTRIAN_INVOLVED">
+                            <label class="form-check-label" asp-for="PEDESTRIAN_INVOLVED">Pedestrian Involved</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="BICYCLIST_INVOLVED">
+                            <label class="form-check-label" asp-for="BICYCLIST_INVOLVED">Bicyclist Involved</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="MOTORCYCLE_INVOLVED">
+                            <label class="form-check-label" asp-for="MOTORCYCLE_INVOLVED">Motorcycle Involved</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="IMPROPER_RESTRAINT">
+                            <label class="form-check-label" asp-for="IMPROPER_RESTRAINT">Improper Restraint</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="UNRESTRAINED">
+                            <label class="form-check-label" asp-for="UNRESTRAINED">Unrestrained</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="DUI">
+                            <label class="form-check-label" asp-for="DUI">DUI</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="INTERSECTION_RELATED">
+                            <label class="form-check-label" asp-for="INTERSECTION_RELATED">Intersection Related</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="WILD_ANIMAL_RELATED">
+                            <label class="form-check-label" asp-for="WILD_ANIMAL_RELATED">Wild Animal Related</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="DOMESTIC_ANIMAL_RELATED">
+                            <label class="form-check-label" asp-for="DOMESTIC_ANIMAL_RELATED">Domestic Animal Related</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="OVERTURN_ROLLOVER">
+                            <label class="form-check-label" asp-for="OVERTURN_ROLLOVER">Overturn/Rollover</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED">
+                            <label class="form-check-label" asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED">Commercial Motor Vehicle Involved</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="TEENAGE_DRIVER_INVOLVED">
+                            <label class="form-check-label" asp-for="TEENAGE_DRIVER_INVOLVED">Teenage Driver Involved</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="OLDER_DRIVER_INVOLVED">
+                            <label class="form-check-label" asp-for="OLDER_DRIVER_INVOLVED">Older Driver Involved</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="NIGHT_DARK_CONDITION">
+                            <label class="form-check-label" asp-for="NIGHT_DARK_CONDITION">Night/Dark Condition</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="SINGLE_VEHICLE">
+                            <label class="form-check-label" asp-for="SINGLE_VEHICLE">Single Vehicle</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="DISTRACTED_DRIVING">
+                            <label class="form-check-label" asp-for="DISTRACTED_DRIVING">Distracted Driving</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="DROWSY_DRIVING">
+                            <label class="form-check-label" asp-for="DROWSY_DRIVING">Drowsy Driving</label>
+                        </div>
+                        <div class="form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="ROADWAY_DEPARTURE">
+                            <label class="form-check-label" asp-for="ROADWAY_DEPARTURE">Roadway Departure</label>
+                        </div>
+                        <div class="text-center mt-2 pb-2">
+                            <button class="btn btn-sm btn-secondary" type="submit">Apply Filters</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        }
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="float-right mr-4" page-model="@ViewBag.PageInfo" page-action="CrashInfo" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-dark" page-class-enabled="true" class="btn-group pull-right m-1"></div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Search By Road Name" asp-for="MAIN_ROAD_NAME">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var c in ViewBag.crashes)
+                    {
+
+                        string bg_color = "white";
+                        switch (c.CRASH_SEVERITY_ID)
+                        {
+                            case 1:
+                                bg_color = "green";
+                                break;
+                            case 2:
+                                bg_color = "greenyellow";
+                                break;
+                            case 3:
+                                bg_color = "yellow";
+                                break;
+                            case 4:
+                                bg_color = "orange";
+                                break;
+                            case 5:
+                                bg_color = "red";
+                                break;
+                        }
+
+                        <div class="col-6">
+                            <div class="card my-1 mx-2 shadow-sm">
+                                <div class="card-body">
+                                    <span class="float-right">
+                                        <h6>Severity: </h6>
+                                        <span class="box float-right" style="background-color: @bg_color">@c.CRASH_SEVERITY_ID</span>
+                                    </span>
+                                    <h5 class="card-title">@c.MAIN_ROAD_NAME</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@c.CRASH_DATETIME</h6>
+                                    <p class="card-text">@(c.LAT_UTM_Y), @c.LONG_UTM_X<br />@(c.CITY), @(c.COUNTY_NAME)</p>
+                                    <a class="stretched-link text-decoration-none" asp-action="CrashDetails" asp-route-id="@c.CRASH_ID"></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="float-right mr-4" page-model="@ViewBag.PageInfo" page-action="CrashInfo" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-dark" page-class-enabled="true" class="btn-group pull-right m-1"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <style>
-    .dot {
+    .box {
         display: flex;
         height: 60px;
         width: 60px;
